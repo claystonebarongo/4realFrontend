@@ -32,37 +32,54 @@ export default function Dashboard() {
   const [latestAppointment, setLatestAppointment] = useState<InspectionRecord | null>(null);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
+  // Helper to fetch full data (Profile + Inspection History)
+  const refreshDashboard = async () => {
+    const savedUser = localStorage.getItem('user');
+    const token = localStorage.getItem('token');
+    if (!savedUser || !token) return;
+
+    const parsedUser = JSON.parse(savedUser);
+
+    try {
+      // 1. Fetch updated profile from backend to ensure status is synced
+      const profileRes = await fetch(`https://fourrealbackend.onrender.com/api/auth/profile`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const profileData = await profileRes.json();
+      if (profileData) {
+        setUser(profileData);
+        localStorage.setItem('user', JSON.stringify(profileData));
+      }
+
+      // 2. Fetch history
+      const historyRes = await fetch(`https://fourrealbackend.onrender.com/api/inspections/history/${parsedUser.id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      const historyData = await historyRes.json();
+      
+      if (historyData.success && historyData.history && historyData.history.length > 0) {
+        const scheduled = historyData.history.find((item: InspectionRecord) => item.status === 'scheduled');
+        setLatestAppointment(scheduled || historyData.history[0]);
+      }
+    } catch (err) {
+      console.error("Failed to sync dashboard:", err);
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    const savedUser = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
     
-    if (savedUser) {
-      const parsedUser = JSON.parse(savedUser);
-      setUser(parsedUser);
-      
-      // Updated URL to production backend
-      fetch(`https://fourrealbackend.onrender.com/api/inspections/history/${parsedUser.id}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-        .then(res => res.json())
-        .then(data => {
-          if (data.success && data.history && data.history.length > 0) {
-            const scheduled = data.history.find((item: InspectionRecord) => item.status === 'scheduled');
-            setLatestAppointment(scheduled || data.history[0]);
-          }
-        })
-        .catch(() => {});
-    } else {
-      window.location.href = '/login';
-    }
+    // Initial fetch
+    refreshDashboard();
+
+    // Polling: refresh every 5 seconds to catch status updates from Admin
+    const interval = setInterval(refreshDashboard, 5000);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearInterval(interval);
+    };
   }, []);
 
   if (!user) return null;

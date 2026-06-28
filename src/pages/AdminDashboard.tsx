@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Users, ClipboardList, Receipt, CheckCircle, XCircle, Calendar } from 'lucide-react';
+import { Users, ClipboardList, Receipt, } from 'lucide-react';
 
 // Interfaces for Type Safety
 interface User {

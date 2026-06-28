@@ -32,7 +32,6 @@ export default function Login({ onNavigate }: LoginProps) {
     setSuccess('');
 
     try {
-      // Updated to use the API_BASE_URL constant
       const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -45,6 +44,8 @@ export default function Login({ onNavigate }: LoginProps) {
 
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
+      // Added: Store role explicitly for easy access in App.tsx
+      localStorage.setItem('role', data.user.role); 
       
       setSuccess('Authentication successful! Redirecting...');
       

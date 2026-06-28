@@ -5,7 +5,7 @@ import Register from './pages/Register';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Payment from './pages/Payment';
-import AdminDashboard from './pages/AdminDashboard'; // Added Import
+import AdminDashboard from './pages/AdminDashboard';
 
 export default function App() {
   const [path, setPath] = useState<string>(window.location.pathname);
@@ -41,7 +41,7 @@ export default function App() {
       case '/login': return <Login onNavigate={navigate} />;
       case '/payment': return <Payment />;
       case '/dashboard': return <Dashboard />;
-      case '/admin': return <AdminDashboard />; // Added Route
+      case '/admin': return <AdminDashboard />;
       default:
         return (
           <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '60vh', gap: '16px', textAlign: 'center' }}>
@@ -53,7 +53,6 @@ export default function App() {
     }
   };
 
-  // Updated layout check to include /admin
   const isDashboardLayout = path === '/dashboard' || path === '/payment' || path === '/admin';
   const isResponsiveStack = windowWidth <= 768;
   const isExtraSmall = windowWidth <= 480;
@@ -82,12 +81,16 @@ export default function App() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', flexGrow: 1, width: '100%' }}>
               <div style={{ padding: '12px 16px', borderRadius: '6px', cursor: 'pointer', backgroundColor: path === '/dashboard' ? '#2D3748' : 'transparent', fontWeight: 600 }} onClick={() => navigate('/dashboard')}>Dashboard</div>
               <div style={{ padding: '12px 16px', borderRadius: '6px', cursor: 'pointer', backgroundColor: path === '/payment' ? '#2D3748' : 'transparent', fontWeight: 600 }} onClick={() => navigate('/payment')}>Payments</div>
-              <div style={{ padding: '12px 16px', borderRadius: '6px', cursor: 'pointer', backgroundColor: path === '/admin' ? '#2D3748' : 'transparent', fontWeight: 600 }} onClick={() => navigate('/admin')}>Admin Panel</div>
+              
+              {/* Conditional Rendering for Admin Panel */}
+              {localStorage.getItem('role') === 'admin' && (
+                <div style={{ padding: '12px 16px', borderRadius: '6px', cursor: 'pointer', backgroundColor: path === '/admin' ? '#2D3748' : 'transparent', fontWeight: 600 }} onClick={() => navigate('/admin')}>Admin Panel</div>
+              )}
             </div>
           )}
 
           <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
-            {isResponsiveStack && (
+            {isResponsiveStack && localStorage.getItem('role') === 'admin' && (
               <button className="corporate-btn-primary" style={{ padding: '6px 10px', fontSize: '12px' }} onClick={() => navigate('/admin')}>Admin</button>
             )}
             <button className="corporate-btn-primary" style={{ background: '#E53E3E', padding: '6px 10px', fontSize: '12px' }} onClick={logout}>Logout</button>

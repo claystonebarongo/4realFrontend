@@ -41,7 +41,7 @@ export default function Dashboard() {
     const parsedUser = JSON.parse(savedUser);
 
     try {
-      // 1. Fetch updated profile from backend to ensure status is synced
+    
       const profileRes = await fetch(`https://fourrealbackend.onrender.com/api/auth/profile`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });

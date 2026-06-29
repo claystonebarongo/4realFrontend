@@ -65,7 +65,7 @@ export default function AdminDashboard() {
         headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
         body: body ? JSON.stringify(body) : undefined
       });
-      fetchData(); // Refresh list automatically
+      fetchData(); 
     } catch (err) {
       console.error("Action failed:", err);
     }

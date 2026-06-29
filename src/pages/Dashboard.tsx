@@ -70,10 +70,10 @@ export default function Dashboard() {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
     
-    // Initial fetch
+    
     refreshDashboard();
 
-    // Polling: refresh every 5 seconds to catch status updates from Admin
+    
     const interval = setInterval(refreshDashboard, 5000);
 
     return () => {

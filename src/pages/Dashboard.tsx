@@ -51,7 +51,7 @@ export default function Dashboard() {
         localStorage.setItem('user', JSON.stringify(profileData));
       }
 
-      // 2. Fetch history
+      
       const historyRes = await fetch(`https://fourrealbackend.onrender.com/api/inspections/history/${parsedUser.id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });

@@ -83,10 +83,11 @@ export default function Dashboard() {
 
     return () => {
 
-      
+
       window.removeEventListener('resize', handleResize);
       clearInterval(interval);
     };
+    
   }, []);
 
   if (!user) return null;

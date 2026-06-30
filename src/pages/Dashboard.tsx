@@ -87,9 +87,10 @@ export default function Dashboard() {
       window.removeEventListener('resize', handleResize);
       clearInterval(interval);
     };
-    
+
   }, []);
 
+  
   if (!user) return null;
 
   const isActive = user.membershipStatus === 'paid';

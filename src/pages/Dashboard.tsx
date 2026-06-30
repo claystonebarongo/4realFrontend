@@ -62,7 +62,7 @@ export default function Dashboard() {
         setLatestAppointment(scheduled || historyData.history[0]);
       }
     } catch (err) {
-      
+
       console.error("Failed to sync dashboard:", err);
     }
   };
@@ -71,6 +71,8 @@ export default function Dashboard() {
 
 
     const handleResize = () => setWindowWidth(window.innerWidth);
+
+    
     window.addEventListener('resize', handleResize);
     
     

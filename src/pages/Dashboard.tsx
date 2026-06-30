@@ -72,7 +72,7 @@ export default function Dashboard() {
 
     const handleResize = () => setWindowWidth(window.innerWidth);
 
-    
+
     window.addEventListener('resize', handleResize);
     
     
@@ -82,6 +82,8 @@ export default function Dashboard() {
     const interval = setInterval(refreshDashboard, 5000);
 
     return () => {
+
+      
       window.removeEventListener('resize', handleResize);
       clearInterval(interval);
     };

@@ -9,7 +9,7 @@ interface VehicleDetails {
 }
 
 interface UserProfile {
-  
+
   id: string;
   name: string;
   email: string;
@@ -19,6 +19,8 @@ interface UserProfile {
   inspectionsRemaining: number;
   diagnosticTestsRemaining: number;
   periodicChecksRemaining: number;
+
+  
 }
 
 interface InspectionRecord {

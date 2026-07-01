@@ -20,7 +20,7 @@ interface UserProfile {
   diagnosticTestsRemaining: number;
   periodicChecksRemaining: number;
 
-  
+
 }
 
 interface InspectionRecord {
@@ -29,6 +29,8 @@ interface InspectionRecord {
   status: 'scheduled' | 'completed' | 'cancelled';
   appointmentDate?: string;
   inspectionResponse?: string;
+
+  
 }
 
 export default function Dashboard() {

@@ -30,7 +30,7 @@ interface InspectionRecord {
   appointmentDate?: string;
   inspectionResponse?: string;
 
-  
+
 }
 
 export default function Dashboard() {
@@ -38,7 +38,7 @@ export default function Dashboard() {
   const [latestAppointment, setLatestAppointment] = useState<InspectionRecord | null>(null);
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
 
-  // Helper to fetch full data (Profile + Inspection History)
+  
   const refreshDashboard = async () => {
     const savedUser = localStorage.getItem('user');
     const token = localStorage.getItem('token');

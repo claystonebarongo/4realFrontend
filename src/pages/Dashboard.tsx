@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { Car, ShieldCheck, ShieldAlert, ClipboardList, Activity, Gauge, CalendarClock, MessageSquareCode } from 'lucide-react';
 
 interface VehicleDetails {
-  
+
   regNumber: string;
   makeModel: string;
   yearOfManufacture: number;
 }
 
 interface UserProfile {
+  
   id: string;
   name: string;
   email: string;

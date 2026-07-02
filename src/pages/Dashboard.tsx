@@ -40,6 +40,8 @@ export default function Dashboard() {
 
   
   const refreshDashboard = async () => {
+
+    
     const savedUser = localStorage.getItem('user');
     const token = localStorage.getItem('token');
     if (!savedUser || !token) return;
@@ -47,7 +49,7 @@ export default function Dashboard() {
     const parsedUser = JSON.parse(savedUser);
     
 
-    
+
 
     try {
     

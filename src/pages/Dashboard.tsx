@@ -24,6 +24,8 @@ interface UserProfile {
 }
 
 interface InspectionRecord {
+
+  
   _id: string;
   type: string;
   status: 'scheduled' | 'completed' | 'cancelled';
@@ -64,7 +66,7 @@ export default function Dashboard() {
         headers: { 'Authorization': `Bearer ${token}` }
       });
 
-      
+
       const historyData = await historyRes.json();
       
       if (historyData.success && historyData.history && historyData.history.length > 0) {

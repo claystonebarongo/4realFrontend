@@ -41,16 +41,13 @@ export default function Dashboard() {
   
   const refreshDashboard = async () => {
 
-    
+
     const savedUser = localStorage.getItem('user');
     const token = localStorage.getItem('token');
     if (!savedUser || !token) return;
 
     const parsedUser = JSON.parse(savedUser);
     
-
-
-
     try {
     
       const profileRes = await fetch(`https://fourrealbackend.onrender.com/api/auth/profile`, {

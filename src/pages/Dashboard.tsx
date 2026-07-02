@@ -47,6 +47,8 @@ export default function Dashboard() {
     const parsedUser = JSON.parse(savedUser);
     
 
+    
+
     try {
     
       const profileRes = await fetch(`https://fourrealbackend.onrender.com/api/auth/profile`, {

@@ -63,6 +63,8 @@ export default function Dashboard() {
       const historyRes = await fetch(`https://fourrealbackend.onrender.com/api/inspections/history/${parsedUser.id}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
+
+      
       const historyData = await historyRes.json();
       
       if (historyData.success && historyData.history && historyData.history.length > 0) {
